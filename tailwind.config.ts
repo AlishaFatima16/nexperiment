@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        serif: ["Lora", "ui-serif", "Georgia", "serif"],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -38,6 +42,15 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          soft: "hsl(var(--accent-soft))",
+        },
+        status: {
+          green: "hsl(var(--status-green))",
+          "green-soft": "hsl(var(--status-green-soft))",
+          yellow: "hsl(var(--status-yellow))",
+          "yellow-soft": "hsl(var(--status-yellow-soft))",
+          red: "hsl(var(--status-red))",
+          "red-soft": "hsl(var(--status-red-soft))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
