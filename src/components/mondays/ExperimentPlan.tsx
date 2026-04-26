@@ -7,10 +7,18 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CitedText } from "./CitedText";
 
-interface ExperimentPlanProps {
+type ExperimentPlanProps = {
   loading: boolean;
-}
+  isGenerating: boolean;
+  protocolText: string;
+  materialsText: string;
+  budgetText: string;
+  timelineText: string;
+  validationText: string;
+  sources: Array<{ id: number; title: string; url: string }>;
+};
 
 const sections = [
   { id: "protocol", label: "Protocol", icon: Beaker },
@@ -37,7 +45,16 @@ function GeneratingState() {
   );
 }
 
-export function ExperimentPlan({ loading }: ExperimentPlanProps) {
+export function ExperimentPlan({
+  loading,
+  isGenerating,
+  protocolText,
+  materialsText,
+  budgetText,
+  timelineText,
+  validationText,
+  sources,
+}: ExperimentPlanProps) {
   return (
     <Card className="border-border/70 shadow-sm">
       <CardHeader>
@@ -63,7 +80,92 @@ export function ExperimentPlan({ loading }: ExperimentPlanProps) {
                 </span>
               </AccordionTrigger>
               <AccordionContent className="pl-11 pr-2">
-                {loading ? (
+                {id === "protocol" ? (
+                  protocolText ? (
+                    <CitedText
+                      text={protocolText}
+                      sources={sources}
+                      className="whitespace-pre-wrap text-sm leading-relaxed text-foreground"
+                    />
+                  ) : isGenerating ? (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin text-accent" />
+                      Generating protocol…
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      Protocol details will appear here once a hypothesis is processed.
+                    </p>
+                  )
+                ) : id === "materials" ? (
+                  materialsText ? (
+                    <CitedText
+                      text={materialsText}
+                      sources={sources}
+                      className="whitespace-pre-wrap text-sm leading-relaxed text-foreground"
+                    />
+                  ) : isGenerating ? (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin text-accent" />
+                      Generating materials…
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      {label} details will appear here once a hypothesis is processed.
+                    </p>
+                  )
+                ) : id === "budget" ? (
+                  budgetText ? (
+                    <CitedText
+                      text={budgetText}
+                      sources={sources}
+                      className="whitespace-pre-wrap text-sm leading-relaxed text-foreground"
+                    />
+                  ) : isGenerating ? (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin text-accent" />
+                      Generating budget…
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      {label} details will appear here once a hypothesis is processed.
+                    </p>
+                  )
+                ) : id === "timeline" ? (
+                  timelineText ? (
+                    <CitedText
+                      text={timelineText}
+                      sources={sources}
+                      className="whitespace-pre-wrap text-sm leading-relaxed text-foreground"
+                    />
+                  ) : isGenerating ? (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin text-accent" />
+                      Generating timeline…
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      {label} details will appear here once a hypothesis is processed.
+                    </p>
+                  )
+                ) : id === "validation" ? (
+                  validationText ? (
+                    <CitedText
+                      text={validationText}
+                      sources={sources}
+                      className="whitespace-pre-wrap text-sm leading-relaxed text-foreground"
+                    />
+                  ) : isGenerating ? (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Loader2 className="h-3.5 w-3.5 animate-spin text-accent" />
+                      Generating validation…
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      {label} details will appear here once a hypothesis is processed.
+                    </p>
+                  )
+                ) : loading ? (
                   <GeneratingState />
                 ) : (
                   <p className="text-sm text-muted-foreground">
