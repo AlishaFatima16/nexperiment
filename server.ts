@@ -5,17 +5,19 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import { tavily } from "@tavily/core";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
 console.log("Tavily key loaded:", !!process.env.TAVILY_API_KEY);
-console.log("Gemini key loaded:", !!process.env.GEMINI_API_KEY);
+console.log("Groq key loaded:", !!process.env.GROQ_API_KEY);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY! });
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
+
+const MODEL = "llama-3.3-70b-versatile";
 
 app.post("/api/plan", async (req, res) => {
   const { hypothesis } = req.body ?? {};
@@ -59,11 +61,15 @@ Cite sources inline as [1], [2], etc. Plain text only, no markdown headers.`;
     const validationPrompt = buildPrompt("Describe VALIDATION & CONTROLS: positive controls, negative controls, statistical analysis, and success criteria.");
     const runAgent = async (eventName: string, prompt: string) => {
       const attempt = async () => {
-        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
-        const result = await model.generateContentStream(prompt);
+        const stream = await groq.chat.completions.create({
+          model: MODEL,
+          messages: [{ role: "user", content: prompt }],
+          stream: true,
+          temperature: 0.4,
+        });
         let charCount = 0;
-        for await (const chunk of result.stream) {
-          const text = chunk.text();
+        for await (const chunk of stream) {
+          const text = chunk.choices?.[0]?.delta?.content ?? "";
           if (text) {
             charCount += text.length;
             send(eventName, { chunk: text });
@@ -78,7 +84,7 @@ Cite sources inline as [1], [2], etc. Plain text only, no markdown headers.`;
           charCount = await attempt();
         } catch (err: any) {
           const msg = String(err?.message ?? err);
-          const retryable = /503|429|Service Unavailable|RESOURCE_EXHAUSTED|ETIMEDOUT/i.test(msg);
+          const retryable = /503|429|rate_limit|Service Unavailable|ETIMEDOUT/i.test(msg);
           if (!retryable) throw err;
           console.warn(`[${eventName}] retryable error, retrying in 1500ms:`, msg);
           await new Promise((r) => setTimeout(r, 1500));
@@ -90,7 +96,7 @@ Cite sources inline as [1], [2], etc. Plain text only, no markdown headers.`;
         send(eventName, { chunk: `\n[Error generating ${eventName}: ${err?.message ?? err}]\n` });
       }
     };
-    console.log("[plan] launching 5 agents...");
+    console.log("[plan] launching 6 agents...");
     await Promise.allSettled([
       runAgent("text",       protocolPrompt),
       runAgent("materials",  materialsPrompt),
@@ -104,7 +110,7 @@ Cite sources inline as [1], [2], etc. Plain text only, no markdown headers.`;
         )
       ),
     ]);
-    console.log("[plan] all 5 agents settled");
+    console.log("[plan] all 6 agents settled");
     send("done", { ok: true });
     res.end();
   } catch (err: any) {
