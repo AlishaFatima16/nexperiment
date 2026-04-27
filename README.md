@@ -7,6 +7,7 @@ Developed for the **Global Hack Nation AI Hackathon** (in association with the *
 
 ---
 ##live demo : https://nexperiment-p2j9-nftoos25o-alishafatima2758-7682s-projects.vercel.app/
+---
 ## 🖥️ The Interface
 !dashboard<img width="720" height="337" alt="WhatsApp Image 2026-04-27 at 1 42 26 PM" src="https://github.com/user-attachments/assets/a8702345-5ed3-4aae-88f6-364d5e28b8a0" />
 
@@ -49,34 +50,37 @@ Nexperiment utilizes a sophisticated multi-agent fan-out architecture to ensure 
 
 ---
 ##🏁 Getting Started
-#1. Prerequisites
+**1. Prerequisites
 Before you begin, ensure you have the following installed:
 Node.js (v18 or higher)
 npm or yarn
 A Postgres database (for the Knowledge Store)
-#2. Installation
+**2. Installation
 Clone the repository: git clone https://github.com/AlishaFatima16/nexperiment.git
 Navigate into the folder: cd nexperiment
 Install dependencies: npm install
-#3. Environment Configuration
+**3. Environment Configuration
 Create a file named .env in the root directory. Paste the following and replace the placeholders with your actual keys:
 PORT=3001
 GROQ_API_KEY=your_groq_api_key_here
 TAVILY_API_KEY=your_tavily_api_key_here
 DATABASE_URL=your_postgresql_connection_string
-#4. Run the Application
+**4. Run the Application
 Start the backend: npm run server
 In a new terminal, start the frontend: npm run dev
+---
 ##🗺️ Roadmap & Future Capabilities
 Autonomous Scientist Agent: Transitioning from plan generation to active task management.
 Fine-tuning Signal: Using scientist-led corrections as a dataset to fine-tune the model.
 Lab Collaboration Suite: Multi-user workspaces for real-time peer review.
+---
 ##🤝 The Team
 Alisha Fatima – https://github.com/AlishaFatima16
 Shazima Kiran – https://github.com/shazimakiran70-hash
 📜 License
 Distributed under the MIT License.
-Developed for the Global Hack Nation 2026 AI Hackathon.
+Developed for the Global Hack Nation 2026 AI Hackathon
+---
 
 ```bash
 git clone [https://github.com/AlishaFatima16/nexperiment.git](https://github.com/AlishaFatima16/nexperiment.git)
