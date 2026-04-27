@@ -14,10 +14,34 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY! });
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
+let tvlyInstance: ReturnType<typeof tavily> | null = null;
+let groqInstance: Groq | null = null;
+
+function getTvly() {
+  if (!tvlyInstance) {
+    if (!process.env.TAVILY_API_KEY) throw new Error("TAVILY_API_KEY env var is missing");
+    tvlyInstance = tavily({ apiKey: process.env.TAVILY_API_KEY });
+  }
+  return tvlyInstance;
+}
+
+function getGroq() {
+  if (!groqInstance) {
+    if (!process.env.GROQ_API_KEY) throw new Error("GROQ_API_KEY env var is missing");
+    groqInstance = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  }
+  return groqInstance;
+}
 
 const MODEL = "llama-3.3-70b-versatile";
+
+app.get("/api/health", (_req, res) => {
+  res.json({
+    ok: true,
+    tavily: !!process.env.TAVILY_API_KEY,
+    groq: !!process.env.GROQ_API_KEY,
+  });
+});
 
 app.post("/api/plan", async (req, res) => {
   const { hypothesis } = req.body ?? {};
@@ -34,7 +58,7 @@ app.post("/api/plan", async (req, res) => {
   };
   try {
     console.log("[plan] hypothesis:", hypothesis);
-    const search = await tvly.search(hypothesis, {
+    const search = await getTvly().search(hypothesis, {
       searchDepth: "advanced",
       maxResults: 5,
     });
@@ -61,7 +85,7 @@ Cite sources inline as [1], [2], etc. Plain text only, no markdown headers.`;
     const validationPrompt = buildPrompt("Describe VALIDATION & CONTROLS: positive controls, negative controls, statistical analysis, and success criteria.");
     const runAgent = async (eventName: string, prompt: string) => {
       const attempt = async () => {
-        const stream = await groq.chat.completions.create({
+        const stream = await getGroq().chat.completions.create({
           model: MODEL,
           messages: [{ role: "user", content: prompt }],
           stream: true,
