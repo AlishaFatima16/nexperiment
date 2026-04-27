@@ -49,39 +49,72 @@ Nexperiment utilizes a sophisticated multi-agent fan-out architecture to ensure 
 | **Persistence** | Postgres + Feedback Memory Store |
 
 ---
-##🏁 Getting Started
-**1. Prerequisites
+## 🏁 Getting Started
+
+### 1. Prerequisites
+
 Before you begin, ensure you have the following installed:
-Node.js (v18 or higher)
-npm or yarn
-A Postgres database (for the Knowledge Store)
-**2. Installation
-Clone the repository: git clone https://github.com/AlishaFatima16/nexperiment.git
-Navigate into the folder: cd nexperiment
-Install dependencies: npm install
-**3. Environment Configuration
-Create a file named .env in the root directory. Paste the following and replace the placeholders with your actual keys:
-PORT=3001
-GROQ_API_KEY=your_groq_api_key_here
-TAVILY_API_KEY=your_tavily_api_key_here
-DATABASE_URL=your_postgresql_connection_string
-**4. Run the Application
-Start the backend: npm run server
-In a new terminal, start the frontend: npm run dev
----
-##🗺️ Roadmap & Future Capabilities
-Autonomous Scientist Agent: Transitioning from plan generation to active task management.
-Fine-tuning Signal: Using scientist-led corrections as a dataset to fine-tune the model.
-Lab Collaboration Suite: Multi-user workspaces for real-time peer review.
----
-##🤝 The Team
-Alisha Fatima – https://github.com/AlishaFatima16
-Shazima Kiran – https://github.com/shazimakiran70-hash
-📜 License
-Distributed under the MIT License.
-Developed for the Global Hack Nation 2026 AI Hackathon
+
+* Node.js (v18 or higher)
+* npm or yarn
+* PostgreSQL database (for the Knowledge Store)
+
 ---
 
-```bash
+### 2. Installation
+
+Clone the repository:
+
+git clone https://github.com/AlishaFatima16/nexperiment.git  
+cd nexperiment  
+
+Install dependencies:
+
+npm install  
+
+---
+
+### 3. Environment Configuration
+
+Create a `.env` file in the root directory and add the following:
+
+PORT=3001  
+GROQ_API_KEY=your_groq_api_key_here  
+TAVILY_API_KEY=your_tavily_api_key_here  
+DATABASE_URL=your_postgresql_connection_string  
+
+---
+
+### 4. Run the Application
+
+Start the backend:
+
+npm run server  
+
+In another terminal, start the frontend:
+
+npm run dev  
+
+---
+
+## 🗺️ Roadmap & Future Capabilities
+
+* Autonomous Scientist Agent: Moving from plan generation to execution of tasks  
+* Fine-tuning Signal: Using scientist feedback for model improvement  
+* Lab Collaboration Suite: Multi-user real-time collaboration  
+
+---
+
+## 🤝 Team
+
+* Alisha Fatima – https://github.com/AlishaFatima16  
+* Shazima Kiran – https://github.com/shazimakiran70-hash  
+
+---
+
+## 📜 License
+
+MIT License  
+Built for the Global Hack Nation 2026 AI Hackathon 🚀
 git clone [https://github.com/AlishaFatima16/nexperiment.git](https://github.com/AlishaFatima16/nexperiment.git)
 cd nexperiment
