@@ -6,8 +6,6 @@
 Developed for the **Global Hack Nation AI Hackathon** (in association with the **MIT Sloan AI Club**), Nexperiment addresses the "cold-start" problem in research by automating literature reviews, protocols, and budgeting through a self-learning feedback loop.
 
 ---
-##live demo : https://nexperiment-p2j9-nftoos25o-alishafatima2758-7682s-projects.vercel.app/
----
 ## 🖥️ The Interface
 !dashboard<img width="720" height="337" alt="WhatsApp Image 2026-04-27 at 1 42 26 PM" src="https://github.com/user-attachments/assets/a8702345-5ed3-4aae-88f6-364d5e28b8a0" />
 
