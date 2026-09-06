@@ -113,6 +113,4 @@ npm run dev
 ## 📜 License
 
 MIT License  
-Built for the Global Hack Nation 2026 AI Hackathon 🚀
-git clone [https://github.com/AlishaFatima16/nexperiment.git](https://github.com/AlishaFatima16/nexperiment.git)
-cd nexperiment
+Built for the Global Hack Nation 2026 AI Hackathon .
